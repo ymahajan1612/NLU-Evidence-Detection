@@ -1,20 +1,21 @@
 import torch
 from torch.utils.data import Dataset
 import pandas as pd
+from transformers import BertTokenizerFast
 
 class ClaimEvidenceDataset(Dataset):
-    def __init__(self, data_path, tokenizer, max_length=128, is_test=False):
+    def __init__(self, data_path, max_length=128, is_test=False):
         self.data = pd.read_csv(data_path)
-        self.tokenizer = tokenizer
         self.max_length = max_length
         self.is_test = is_test
+        self.tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
 
     def __len__(self):
         return len(self.data)
     
     def __getitem__(self, idx):
-        claim = self.data.iloc[idx]['claim']
-        evidence = self.data.iloc[idx]['evidence']
+        claim = self.data.iloc[idx]['Claim']
+        evidence = self.data.iloc[idx]['Evidence']
         claim_encoding = self.tokenizer(claim, max_length=self.max_length, padding='max_length', truncation=True, return_tensors='pt')
         evidence_encoding = self.tokenizer(evidence, max_length=self.max_length, padding='max_length', truncation=True, return_tensors='pt')
         
