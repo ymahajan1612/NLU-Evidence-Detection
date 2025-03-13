@@ -13,10 +13,10 @@ class SiameseBert(nn.Module):
     
     def forward(self, claim_ids, evidence_ids, claim_attention_mask, evidence_attention_mask):
         claim_output = self.bert(input_ids = claim_ids, attention_mask = claim_attention_mask).last_hidden_state[:,0,:]
-        input_output = self.bert(input_ids = evidence_ids, attention_mask = evidence_attention_mask).last_hidden_state[:,0,:]
+        evidence_output = self.bert(input_ids = evidence_ids, attention_mask = evidence_attention_mask).last_hidden_state[:,0,:]
 
         # Concatenate the output of the two branches
-        combined = torch.cat((claim_output, input_output), dim=1)
+        combined = torch.cat((claim_output, evidence_output), dim=1)
         logits = self.fc(combined)
         return logits
 
