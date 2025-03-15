@@ -7,7 +7,7 @@ from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_sc
 import time
 from tqdm import tqdm
 
-from early_stopping import EarlyStopping
+from evidence_detection.early_stopping import EarlyStopping
 
 class Trainer:
     def __init__(

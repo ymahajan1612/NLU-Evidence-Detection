@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from attention_layer import AttentionLayer
+from evidence_detection.attention_layer import AttentionLayer
 from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 
 class BiLSTMAttention(nn.Module):
