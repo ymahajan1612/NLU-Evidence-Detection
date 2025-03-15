@@ -65,7 +65,7 @@ class Trainer:
             mode='max',
             factor=0.5,
             patience=2,
-            verbose=True
+            verbose="deprecated"
         )
         
         # Early stopping
