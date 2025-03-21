@@ -41,7 +41,7 @@ class EvidenceDetectionDataset(Dataset):
         }
 
         # Add labels if available (not in test mode)
-        if not self.labels is not None:
+        if self.labels is not None:
             item['label'] = torch.tensor(self.labels[idx], dtype=torch.long)
 
         return item
