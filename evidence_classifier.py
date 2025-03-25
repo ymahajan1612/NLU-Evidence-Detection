@@ -9,7 +9,7 @@ class EvidenceClassifier(nn.Module):
         self.dropout = nn.Dropout(dropout_rate)
         self.classifier = nn.Linear(self.bert.config.hidden_size, num_labels)
     
-    def forward(self, input_ids, attention_mask, token_type_ids, labels=None):
+    def forward(self, input_ids, attention_mask, token_type_ids):
         outputs = self.bert(input_ids=input_ids,
                     attention_mask=attention_mask,
                     token_type_ids=token_type_ids)
