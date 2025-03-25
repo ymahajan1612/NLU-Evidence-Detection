@@ -17,7 +17,6 @@ class ClaimEvidenceDataset(Dataset):
         claim = self.data.iloc[idx]['Claim']
         evidence = self.data.iloc[idx]['Evidence']
         
-        # Tokenize claim and evidence as a pair.
         encoding = self.tokenizer(
             claim,
             evidence,
