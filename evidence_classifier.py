@@ -10,11 +10,11 @@ class EvidenceClassifier(nn.Module):
         self.classifier = nn.Linear(self.bert.config.hidden_size, num_labels)
     
     def forward(self, input_ids, attention_mask, token_type_ids, labels=None):
-        # Get the BERT outputs; we use the pooled output ([CLS] token representation)
         outputs = self.bert(input_ids=input_ids,
-                            attention_mask=attention_mask,
-                            token_type_ids=token_type_ids)
-        pooled_output = outputs.pooler_output 
+                    attention_mask=attention_mask,
+                    token_type_ids=token_type_ids)
+        last_hidden_state = outputs.last_hidden_state
+        pooled_output = last_hidden_state[:, 0, :]  # Use the [CLS] token representation
         pooled_output = self.dropout(pooled_output)
         logits = self.classifier(pooled_output)
         
