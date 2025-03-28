@@ -73,20 +73,21 @@ The 5926 pairs provided in the dev set were used for evaluating the model
 
 #### Metrics
   - Accuracy
-  - Precision
-  - Recall
+  - Precision (Weighted)
+  - Recall (Weighted)
   - F1 Score
   - ROC Curve (AUC)
 
 ### Results
 The results of the model were as follows
 - Accuracy: 0.8766452919338509
-- Precision: 0.8764849699451085
-- Recall: 0.8766452919338509
+- Precision (Weighted): 0.8764849699451085
+- Recall (Weighted): 0.8766452919338509
 - F1 Score: 0.8765637073041516
 - AUC: 0.85
 
-All of these metrics are quite similar to each other which suggests the dataset is balanced for both classes. When the dataset is balanced and the model does well across both positive and negative classes, precision and recall often end up being quite similar, and hence F1 and accuracy also end up close to those values.
+We use a weighted precision and recall as there is a significant class imbalance in the dev set.  72.33% of the examples are labelled 0, whilst 27.67% are labelled 1. Given this class imbalance, using a weighted precision and recall are appropriate.
+
 
 In general we found that this model performed slightly better than the baseline BERT model on Codabench. This is likely due to the dropout regularisation applied which helps in reducing some of the overfitting. 
 
