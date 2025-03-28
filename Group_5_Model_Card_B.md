@@ -10,7 +10,7 @@ This is a Bidirectional LSTM with Attention classification model for evidence de
 
 ### Model Description
 
-This is a model based on the Bidirectional Long Short-Term Memory (BiLSTM) with Attention. The model has been fine-tuned on 21K claim-evidence pairs as part of the Evidence Detection (ED) task and is intended for the task of pairwise sequence classification.
+This is a model based on the Bidirectional Long Short-Term Memory (BiLSTM) with Attention. The model has been trained on 21K claim-evidence pairs as part of the Evidence Detection (ED) task and is intended for the task of pairwise sequence classification.
 
 <!-- Provide a longer summary of what this model is. -->
 
@@ -31,7 +31,7 @@ This is a model based on the Bidirectional Long Short-Term Memory (BiLSTM) with 
 
 ### Training Data
 
-21,509 claim-evidence pairs were used to fine-tune the model
+21,509 claim-evidence pairs were used to train the model
 
 ### Training Procedure
 The libraries used in model training include: 
@@ -65,10 +65,10 @@ For optimization, we used the Adam optimizer with cross-entropy loss. We impleme
 
 #### Speeds, Sizes, Times
 
-- Hyper parameter tuning time: (need to check)
-- Training Time: need to check
-- Inference Time: need to check
-- Model Size: need to check
+- Hyper parameter tuning time: 33 minutes
+- Training Time: 3 minutes
+- Inference Time: 3 seconds
+- Model Size: 18.6 MB
 
 ## Evaluation
 
@@ -89,16 +89,16 @@ The 5926 pairs provided in the dev set were used for evaluating the model
 
 ### Results
 The results of the model were as follows
-- Accuracy: need toimplement
-- Precision: need toimplement
-- Recall: need toimplement
-- F1 Score: need toimplement
-- AUC: need toimplement
+- Accuracy: 0.8176
+- Weighted Precision: 0.8141
+- Weighted Recall: 0.8176
+- Weighted F1 Score: 0.8155
+- AUC: 0.76
 
-<!-- Will need to add later once I get the results -->
-<!-- All of these metrics are quite similar to each other which suggests the dataset is balanced for both classes. When the dataset is balanced and the model does well across both positive and negative classes, precision and recall often end up being quite similar, and hence F1 and accuracy also end up close to those values.
+We use a weighted precision, recall and F1 score as there is a significant class imbalance in the dev set. 72.33% of the examples are labelled 0, whilst 27.67% are labelled 1. Given this class imbalance, using a weighted precision, recall and F1 score are appropriate.
 
-In general we found that this model performed slightly better than the baseline BERT model on Codabench. This is likely due to the dropout regularisation applied which helps in reducing some of the overfitting.  -->
+In general we found that this model performed slightly better than the baseline LSTM model on Codabench. This is likely due to the dropout regularisation applied which helps in reducing some of the overfitting.
+
 
 ## Technical Specifications
 
