@@ -1,4 +1,3 @@
-{{ card_data }}
 
 ---
 
@@ -7,7 +6,7 @@
 <!-- Provide a quick summary of what the model is/does. -->
 
 ## Model Details
-This is a transformer-based classification model. Givem an evidence and claim, it detects if the evidence supports or refutes the claim
+This is a transformer-based classification model. Given an evidence and claim, it detects if the evidence supports or refutes the claim
 
 ### Model Description
 
