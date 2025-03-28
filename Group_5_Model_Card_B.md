@@ -57,11 +57,11 @@ For optimization, we used the Adam optimizer with cross-entropy loss. We impleme
 
 #### Training Hyperparameters
 
-- Dropout Rate: 0.4508594141808036
-- Learning Rate: 0.0002398422178544341
+- Dropout Rate: 0.4277148867646843
+- Learning Rate: 0.00033550020021625327
 - Batch Size: 16
-- Hidden Dimension: 512
-- Weight Decay: 9.847501948528487e-05
+- Hidden Dimension: 256
+- Weight Decay: 1.8390870324768507e-05
 
 #### Speeds, Sizes, Times
 
