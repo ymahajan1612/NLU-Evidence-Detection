@@ -6,6 +6,7 @@ from torch.nn.utils.rnn import pad_sequence
 from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_score
 import time
 from tqdm import tqdm
+import matplotlib.pyplot as plt
 
 from evidence_detection.early_stopping import EarlyStopping
 
@@ -35,6 +36,10 @@ class Trainer:
         self.model = model.to(device)
         self.device = device
         self.batch_size = batch_size
+        self.train_losses = []
+        self.val_losses = []
+        self.train_f1_scores = []
+        self.val_f1_scores = []
         
         # DataLoaders
         self.train_loader = DataLoader(
@@ -216,6 +221,12 @@ class Trainer:
             
             # Evaluate
             val_metrics = self.evaluate()
+
+            # Store metrics for plotting
+            self.train_losses.append(train_metrics['loss'])
+            self.val_losses.append(val_metrics['loss'])
+            self.train_f1_scores.append(train_metrics['f1'])
+            self.val_f1_scores.append(val_metrics['f1'])
             
             elapsed_time = time.time() - start_time
             
@@ -323,4 +334,41 @@ class Trainer:
         """
         torch.save(self.model.state_dict(), path)
         print(f"Model saved to {path}")
+
+    def plot_training_metrics(self):
+        """
+        Plot training and validation metrics (loss and F1 score).
+        
+        Args:
+            save_path (str, optional): Path to save the plot. If None, plot is not saved.
+            show_plot (bool): Whether to display the plot.
+        """
+        if not self.train_losses or not self.val_losses:
+            print("No training history available to plot.")
+            return
+            
+        epochs = range(1, len(self.train_losses) + 1)
+        
+        
+        # Plot losses
+        plt.figure(figsize=(12, 5))
+        plt.plot(epochs, self.train_losses, 'b-', label='Training Loss')
+        plt.plot(epochs, self.val_losses, 'r-', label='Validation Loss')
+        plt.xlabel('Epochs')
+        plt.ylabel('Loss')
+        plt.title('Training and Validation Loss')
+        plt.legend()
+        plt.grid(True)
+        plt.show()
+        
+        # Plot F1 scores
+        plt.figure(figsize=(12, 5))
+        plt.plot(epochs, self.train_f1_scores, 'g-', label='Training F1')
+        plt.plot(epochs, self.val_f1_scores, 'm-', label='Validation F1')
+        plt.xlabel('Epochs')
+        plt.ylabel('F1 Score')
+        plt.title('Training and Validation F1 Score')
+        plt.legend()
+        plt.grid(True)
+        plt.show()
         
