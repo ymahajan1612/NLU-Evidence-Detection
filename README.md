@@ -54,3 +54,77 @@ Similar to ``ED_transformer_evaluate.ipynb``, this notebooks loads the trained m
 It uses the same ``predict`` method to generate these predictions.
 
 The notebook contains extra functionality for generating a prediction on  custom user input claim-evidence pairs.
+
+
+
+## Deep Learning (w/o Transformers) Approach
+
+The prediction output from this task can be found in the ``predictions`` directory with filename ``Group_5_B.csv``
+
+### train_bilstm_attention.ipynb
+This notebook implements and trains a Bidirectional LSTM model with attention mechanism for evidence detection. The model architecture processes both claims and evidence separately, then combines their representations for classification.
+
+**Key components:**
+- **Data Preparation**: Loads training data from CSV files and splits it into training and validation sets. The data is preprocessed using a custom vocabulary.
+- **Word Embeddings**: Utilizes pre-trained GloVe embeddings (300d) to represent tokens semantically.
+- **Model Architecture**: 
+  - Dual BiLSTM networks to process claims and evidence separately
+  - Attention mechanism to focus on the most relevant parts of sequences
+  - Concatenation of claim and evidence representations with their element-wise product
+  - Dense classification layers
+- **Hyperparameter Optimization**: Uses Optuna for hyperparameter tuning to find optimal:
+  - Hidden dimension size
+  - Dropout rate
+  - Batch size
+  - Learning rate
+  - Weight decay
+- **Training Process**:
+  - Cross-entropy loss with Adam optimizer
+  - Early stopping based on validation F1 score
+  - Learning rate scheduling
+  - Comprehensive metrics tracking (loss, accuracy, precision, recall, F1)
+- **Visualization**: Plots training and validation metrics to track performance over epochs
+
+The notebook leverages several custom modules:
+- `AttentionLayer`: Implements the attention mechanism
+- `BiLSTMAttention`: The core model architecture
+- `EarlyStopping`: For training optimization
+- `EvidenceDetectionDataset`: Custom dataset class for data handling
+- `Vocabulary`: For tokenization and vocabulary management
+- `Trainer`: Orchestrates the training process
+
+
+### evaluate_bilstm_attention.ipynb
+
+This notebook evaluates the trained BiLSTM with Attention model on the development set. It provides a comprehensive assessment of the model's performance on evidence detection tasks.
+
+**Key components:**
+- **Model Loading**: Loads the pretrained BiLSTM with Attention model with optimized hyperparameters.
+- **Data Preparation**: Processes the development dataset using the same vocabulary and preprocessing steps used during training.
+- **Evaluation Metrics**: Calculates and reports:
+  - Accuracy (81.76%)
+  - Precision (macro: 77.37%, weighted: 81.41%, micro: 81.76%)
+  - Recall (macro: 76.13%, weighted: 81.76%, micro: 81.76%)
+  - F1 scores (macro: 76.70%, weighted: 81.55%, micro: 81.76%)
+- **Visualization**:
+  - Generates ROC curve with AUC score
+  - Displays confusion matrix to analyze false positives and false negatives
+- **Error Analysis**: Facilitates analysis of model predictions to understand where the model succeeds and fails.
+
+
+### demo_bilstm_attention.ipynb
+
+This notebook demonstrates how to use the trained BiLSTM with Attention model for inference on new test data. It serves as a practical demonstration of the model's application for evidence detection tasks.
+
+**Key components:**
+- **Environment Setup**: Configures dependencies, sets random seeds, and prepares necessary utilities for reproducible inference.
+- **Test Data Loading**: Loads and prepares test data for evaluation.
+- **Model Initialization**: Rebuilds the BiLSTM with Attention model architecture using the same hyperparameters from training.
+- **Model Loading**: Loads the pretrained model weights from "ED_model_B.pt".
+- **Inference Pipeline**: 
+  - Processes test data in batches
+  - Generates predictions for each claim-evidence pair
+  - Exports predictions to "Group_5_B.csv"
+- **Production Readiness**: Demonstrates how the model can be deployed for inference on unseen data.
+
+This notebook provides a complete end-to-end workflow for using the trained model in a production environment, enabling users to generate evidence detection predictions on new data.
