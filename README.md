@@ -66,7 +66,7 @@ This notebook implements and trains a Bidirectional LSTM model with attention me
 
 **Key components:**
 - **Data Preparation**: Loads training data from CSV files and splits it into training and validation sets. The data is preprocessed using a custom vocabulary.
-- **Word Embeddings**: Utilizes pre-trained GloVe embeddings (300d) to represent tokens semantically.
+- **Word Embeddings**: Utilizes pre-trained `GloVe embeddings (300d)` to represent tokens semantically.
 - **Model Architecture**: 
   - Dual BiLSTM networks to process claims and evidence separately
   - Attention mechanism to focus on the most relevant parts of sequences
@@ -101,15 +101,14 @@ This notebook evaluates the trained BiLSTM with Attention model on the developme
 **Key components:**
 - **Model Loading**: Loads the pretrained BiLSTM with Attention model with optimized hyperparameters.
 - **Data Preparation**: Processes the development dataset using the same vocabulary and preprocessing steps used during training.
-- **Evaluation Metrics**: Calculates and reports:
-  - Accuracy (81.76%)
-  - Precision (macro: 77.37%, weighted: 81.41%, micro: 81.76%)
-  - Recall (macro: 76.13%, weighted: 81.76%, micro: 81.76%)
-  - F1 scores (macro: 76.70%, weighted: 81.55%, micro: 81.76%)
+- **Evaluation Metrics**: Calculates:
+  - Accuracy
+  - Precision
+  - Recall
+  - F1 scores
 - **Visualization**:
   - Generates ROC curve with AUC score
   - Displays confusion matrix to analyze false positives and false negatives
-- **Error Analysis**: Facilitates analysis of model predictions to understand where the model succeeds and fails.
 
 
 ### demo_bilstm_attention.ipynb
